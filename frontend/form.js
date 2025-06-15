@@ -8,12 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Check reCAPTCHA
-  const recaptchaResponse = grecaptcha.getResponse();
-  if (!recaptchaResponse) {
-    showMessage("Please complete the reCAPTCHA.", "error");
-    return;
-  }
+
 
 
   form.addEventListener("submit", function (e) {
@@ -23,6 +18,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = form.user_name.value.trim();
     const email = form.user_email.value.trim();
     const message = form.message.value.trim();
+    const captcha = grecaptcha.getResponse();
+
+    // Check reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+      showMessage("Please complete the reCAPTCHA.", "error");
+      return;
+    }
+
 
     // Simple email regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(() => {
         showMessage("✅ Message sent successfully!", "success");
         form.reset();
-        // grecaptcha.reset(); 
+        grecaptcha.reset();
       })
       .catch((err) => {
         console.error("EmailJS Error:", err);
