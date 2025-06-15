@@ -21,10 +21,18 @@ async function fetchBlogs() {
     blogs.forEach(blog => {
       const title = blog.Title || "Untitled";
       const description = getPlainText(blog.description) || "No description.";
-      const date = blog.date || blog.createdAt || "No date";
+
+
+      // const date = blog.date || blog.createdAt || "No date";
+      const date = blog.date || blog.publishedAt || blog.createdAt || null;
+      const formattedDate = date
+        ? new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+        : "No date";
+
 
       // Correct image URL path based on your API response
       const imageUrl = blog.image?.url || null;
+
 
       const card = document.createElement("div");
       card.className = "blog-post";
@@ -32,7 +40,8 @@ async function fetchBlogs() {
       card.innerHTML = `
           ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
           <h3>${title}</h3>
-          <small>Published: ${new Date(date).toLocaleDateString()}</small>
+        
+          <small>Published: ${formattedDate}</small>
           <p>${description.substring(0, 70)}...</p>
         `;
 
