@@ -30,10 +30,10 @@ async function fetchBlogs() {
       card.className = "blog-post";
 
       card.innerHTML = `
-          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 8px;">` : ""}
+          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
           <h3>${title}</h3>
-          <small>${new Date(date).toLocaleDateString()}</small>
-          <p>${description.substring(0, 200)}...</p>
+          <small>Published: ${new Date(date).toLocaleDateString()}</small>
+          <p>${description.substring(0, 70)}...</p>
         `;
 
       blogList.appendChild(card);
