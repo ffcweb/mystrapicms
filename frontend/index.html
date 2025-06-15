@@ -416,41 +416,24 @@
         <a href="allblogs.html" class="btn">View All Posts</a>
       </div>
 
-      <!-- Blog posts grid container -->
+      <!-- Blog posts card grid container -->
       <div id="blog-list" class="blog-grid">
         Loading...
       </div>
     </section>
 
 
-    <!-- Right Blog Cards Column -->
-    <!-- <section id="blog-posts">
-      <div class="blog-grid" d="blog-list"></div>
-    </section> -->
-
-    <!-- <section id="OurBlog" class="wid-container blog-section">
-      <div class="blog-text">
-        <div class="blog-text-inner">
-          <h2 class="blog-section-title">From Our Blog</h2>
-          <p class="section-description">Insights, tips, and updates to help you stay informed.</p>
-          <a href="allblogs.html" class="btn">View All Posts</a>
-        </div>
-      </div>
-      <section id="blog-posts">
-        <div class="blog-grid" id="blog-list">
-        </div>
-      </section>
-    </section> -->
-
-    <!-- <section id="ContactUS" class="split-contact">
+    <section id="contact" class="split-contact">
       <div class="image-side" role="img" aria-label="Office interior image"></div>
       <div class="form-side">
         <h2>Let’s Build Something Great Together</h2>
         <p>Have a question, need a quote, or ready to get started? We’d love to hear from you. Whether you’re starting
           from scratch or looking to revamp your current site, we’re here to help.</p>
-        <form>
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
+
+        <form id="contact-form">
+          <input type="text" name="user_name" placeholder="Your Name" required />
+          <input type="email" name="user_email" placeholder="Your Email" required />
+          <input type="text" name="title" placeholder="Subject" />
           <select required>
             <option value="" disabled selected>Select Requirement Type</option>
             <option value="web-design">Web Design</option>
@@ -460,24 +443,12 @@
             <option value="seo">SEO & Marketing</option>
             <option value="other">Other</option>
           </select>
-          <textarea placeholder="How can we help you?" rows="15" required></textarea>
+          <textarea name="message" placeholder="Your Message" rows="15" required></textarea>
+          <!-- <textarea placeholder="How can we help you?" rows="15" required></textarea> -->
           <button class="btn" type="submit">Send Message</button>
         </form>
+        <p id="form-message"></p>
       </div>
-    </section> -->
-
-
-    <section id="contact">
-      <h1>Contact Us</h1>
-      <form id="contact-form">
-        <input type="text" name="user_name" placeholder="Your Name" required />
-        <input type="email" name="user_email" placeholder="Your Email" required />
-        <input type="text" name="title" placeholder="Subject" />
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-
-      <p id="form-message"></p>
     </section>
 
 
