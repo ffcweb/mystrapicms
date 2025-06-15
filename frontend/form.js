@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(() => {
         showMessage("✅ Message sent successfully!", "success");
         form.reset();
-        grecaptcha.reset(); // Reset reCAPTCHA widget
+        // grecaptcha.reset(); 
       })
       .catch((err) => {
         console.error("EmailJS Error:", err);

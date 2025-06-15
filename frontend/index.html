@@ -16,8 +16,7 @@
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-
-
+    <!-- CSS file -->
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -427,7 +426,6 @@
     </section>
 
 
-
     <!-- contact section  -->
     <section id="contact" class="split-contact">
       <div class="image-side" role="img" aria-label="Office interior image"></div>
@@ -452,15 +450,19 @@
           <textarea name="message" placeholder="Your Message" rows="15" required></textarea>
           <!-- <textarea placeholder="How can we help you?" rows="15" required></textarea> -->
 
+
           <!-- Google reCAPTCHA widget -->
-          <div class="g-recaptcha" data-sitekey="6LcS-mErAAAAAJaU-CJxZH9kubw_tCf1aqBsfAR4
-"></div>
+          <div class="g-recaptcha" data-sitekey="6LcS-mErAAAAAJaU-CJxZH9kubw_tCf1aqBsfAR4"></div>
+
 
           <!-- Submit button -->
           <input type="hidden" name="form_type" value="contact_form" />
           <button class="btn" type="submit">Send Message</button>
         </form>
+
+        <!-- Message display -->
         <p id="form-message"></p>
+
       </div>
     </section>
 
