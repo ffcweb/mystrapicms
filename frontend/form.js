@@ -56,6 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function showMessage(text, type) {
     messageBox.innerText = text;
     messageBox.className = type;
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      messageBox.innerText = "";
+      messageBox.className = "";
+    }, 5000);
   }
 
 
