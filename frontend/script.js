@@ -1,14 +1,11 @@
 
-const apiUrl = "https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs";
+const apiUrl = "https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?populate=*";
 
-// Convert rich text description array to plain text
-function getPlainText(descriptionArray) {
-  if (!descriptionArray || !Array.isArray(descriptionArray)) return "";
-  // Combine all children texts from all blocks
-  return descriptionArray
-    .map(block =>
-      block.children.map(child => child.text).join("")
-    )
+// Helper to convert rich text blocks to plain text
+function getPlainText(blocks) {
+  if (!Array.isArray(blocks)) return "";
+  return blocks
+    .map(block => block.children?.map(child => child.text).join(" ") || "")
     .join("\n");
 }
 
@@ -19,23 +16,26 @@ async function fetchBlogs() {
     const blogs = json.data;
 
     const blogList = document.getElementById("blog-list");
-    blogList.innerHTML = ""; // Clear loading text
-
-    if (blogs.length === 0) {
-      blogList.innerHTML = "<p>No blogs found.</p>";
-      return;
-    }
+    blogList.innerHTML = "";
 
     blogs.forEach(blog => {
-      const title = blog.Title || blog.attributes?.Title || "Untitled";
-      const description = getPlainText(blog.description || blog.attributes?.description);
+      const title = blog.Title || "Untitled";
+      const description = getPlainText(blog.description) || "No description.";
+      const date = blog.date || blog.createdAt || "No date";
+
+      // Correct image URL path based on your API response
+      const imageUrl = blog.image?.url || null;
 
       const card = document.createElement("div");
-      card.className = "blog-card";
+      card.className = "blog-post";
+
       card.innerHTML = `
-  <h3>${title}</h3>
-  <p>${description.substring(0, 200)}...</p>
-  `;
+          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 8px;">` : ""}
+          <h3>${title}</h3>
+          <small>${new Date(date).toLocaleDateString()}</small>
+          <p>${description.substring(0, 200)}...</p>
+        `;
+
       blogList.appendChild(card);
     });
   } catch (error) {
@@ -45,4 +45,3 @@ async function fetchBlogs() {
 }
 
 fetchBlogs();
-
