@@ -14,6 +14,10 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -423,6 +427,8 @@
     </section>
 
 
+
+    <!-- contact section  -->
     <section id="contact" class="split-contact">
       <div class="image-side" role="img" aria-label="Office interior image"></div>
       <div class="form-side">
@@ -445,6 +451,13 @@
           </select>
           <textarea name="message" placeholder="Your Message" rows="15" required></textarea>
           <!-- <textarea placeholder="How can we help you?" rows="15" required></textarea> -->
+
+          <!-- Google reCAPTCHA widget -->
+          <div class="g-recaptcha" data-sitekey="6LcS-mErAAAAAJaU-CJxZH9kubw_tCf1aqBsfAR4
+"></div>
+
+          <!-- Submit button -->
+          <input type="hidden" name="form_type" value="contact_form" />
           <button class="btn" type="submit">Send Message</button>
         </form>
         <p id="form-message"></p>
@@ -452,6 +465,7 @@
     </section>
 
 
+    <!-- footer section -->
     <footer class="site-footer">
       <div class="footer-container">
         <div class="footer-left">

@@ -1,24 +1,17 @@
-// emailjs.init('ue1cJMZhkfqB1jFrTGnPV'); // Your Public Key
-
-// document.getElementById('contact-form').addEventListener('submit', function (e) {
-//   e.preventDefault();
-//   emailjs.sendForm('service_3snxvmo', 'template_k0flekj', this)
-//     .then(() => {
-//       alert('Message sent!');
-//     }, (error) => {
-//       console.error('Email send failed:', error);
-//     });
-// });
-// 
-
-
-
+// Ensure EmailJS is loaded
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("contact-form");
   const messageBox = document.getElementById("form-message");
 
   if (!form) {
     console.error("Form element not found.");
+    return;
+  }
+
+  // Check reCAPTCHA
+  const recaptchaResponse = grecaptcha.getResponse();
+  if (!recaptchaResponse) {
+    showMessage("Please complete the reCAPTCHA.", "error");
     return;
   }
 
@@ -51,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(() => {
         showMessage("✅ Message sent successfully!", "success");
         form.reset();
+        grecaptcha.reset(); // Reset reCAPTCHA widget
       })
       .catch((err) => {
         console.error("EmailJS Error:", err);
