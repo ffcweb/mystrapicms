@@ -789,14 +789,16 @@ nav {
 
 .blog-detail {
   max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 120px;
-  padding: 0 80px;
+  padding: 0 40px;
   font-family: "Inter", sans-serif;
 }
 
 .blog-detail img {
   width: 100%;
-  height: auto;
+  height: 450px;
   border-radius: 8px;
   margin-bottom: 20px;
 }
