@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bookings",
+  "info": {
+    "singularName": "booking",
+    "pluralName": "bookings",
+    "displayName": "Booking"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "date": {
+      "type": "date"
+    },
+    "time": {
+      "type": "time"
+    },
+    "phone_number": {
+      "type": "biginteger"
+    }
+  }
+}

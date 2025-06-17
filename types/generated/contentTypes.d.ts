@@ -445,6 +445,38 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
+  collectionName: 'bookings';
+  info: {
+    displayName: 'Booking';
+    pluralName: 'bookings';
+    singularName: 'booking';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::booking.booking'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    phone_number: Schema.Attribute.BigInteger;
+    publishedAt: Schema.Attribute.DateTime;
+    time: Schema.Attribute.Time;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
@@ -987,6 +1019,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::booking.booking': ApiBookingBooking;
       'api::category.category': ApiCategoryCategory;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
