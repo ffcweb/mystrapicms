@@ -16,7 +16,8 @@ async function fetchBlogs() {
     const blogList = document.getElementById("blog-list");
     blogList.innerHTML = "";
 
-    blogs.forEach(blog => {
+    // blogs.forEach(blog => {
+    blogs.slice(0, 2).forEach(blog => {
       const readMoreLink = `blogdetail.html?doc=${blog.documentId}`;
 
       const title = blog.Title || "Untitled";
@@ -36,8 +37,8 @@ async function fetchBlogs() {
         ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
         <h3>${title}</h3>
         <small>Published: ${formattedDate}</small>
-        <p>${description.substring(0, 100)}...</p>
-        <a href="${readMoreLink}" class="read-more-btn">Read More</a>
+        <p>${description.substring(0, 70)}...</p>
+        <a href="${readMoreLink}" class="read-more-btn btn">Read More</a>
       `;
 
       blogList.appendChild(card);

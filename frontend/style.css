@@ -719,6 +719,11 @@ nav {
   border-radius: 5px;
 }
 
+/* View All Posts button inside blog section */
+.blog-text-inner .btn {
+  margin-top: 20px;
+}
+
 .blog-text p {
   margin: 20px 10px;
   color: var(--text-darygray);
@@ -749,12 +754,12 @@ nav {
 /* Blog grid for posts */
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
 .blog-grid a {
-  display: block;
+  /* display: block;
   width: 72px;
   background-color: var(--secondary-lightBlue);
   padding: 3px 5px;
@@ -763,7 +768,18 @@ nav {
   color: var(--background-light);
   cursor: pointer;
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: 20px; */
+
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background-color: #0077cc;
+  color: white;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
 .blog-grid a:hover {
