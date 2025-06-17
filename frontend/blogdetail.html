@@ -14,19 +14,16 @@
     <!-- CSS file -->
     <link rel="stylesheet" href="style.css" />
 
-
   </head>
 
   <body>
 
     <nav role="navigation" aria-label="Main navigation">
-      <!-- logo with text -->
+      <!-- logo -->
       <div class="logo" tabindex="0">
-        <img src="noedgeLOGO.png" alt="" />
-        <!-- <span>Nexus</span> -->
+        <img href="#index.html" src="noedgeLOGO.png" alt="Webbuddypro LOGO" />
         <div class="frosted-overlay"></div>
       </div>
-
       <!-- hamburger -->
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu"
         id="hamburger-btn">
@@ -34,7 +31,7 @@
         <span></span>
         <span></span>
       </button>
-      <!-- menu list -->
+      <!-- Menu list -->
       <ul class="menu" id="primary-menu" aria-hidden="true">
         <li><a href="#" tabindex="-1">Home</a></li>
         <li><a href="#Services" tabindex="-1">Services</a></li>
@@ -47,7 +44,21 @@
     <div id="overlay" tabindex="-1"></div>
 
     <!-- This is where I want the blog content to go -->
-    <main id="blog-detail" class="blog-detail"></main>
+    <main id="blog-detail" class="blog-detail">
+      <h1>Loading blog...</h1>
+      <p>Please wait while we fetch the blog content.</p>
+      <img src="loading.gif" alt="Loading..." />
+    </main>
+
+
+
+    <!-- Recomandations -->
+    <section class="recommended-posts-section">
+      <h2>Recommended Posts</h2>
+      <div class="recommended-posts" id="recommended-posts">
+        <!-- Recommended blog cards will be inserted here -->
+      </div>
+    </section>
 
     <!-- footer section -->
     <footer class="site-footer">
@@ -69,7 +80,6 @@
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           </div>
-
         </div>
       </div>
       <div class="footer-bottom">
@@ -85,62 +95,10 @@
     </div>
 
 
+    <!-- JavaScript files -->
 
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const docId = params.get('doc');
-
-      if (!docId) {
-        document.body.innerHTML = "<p>Blog not found.</p>";
-      } else {
-        fetch(`https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?filters[documentId][$eq]=${docId}&populate=*`)
-          .then(res => res.json())
-          .then(data => {
-            const blog = data.data[0];
-            if (blog) {
-              renderBlog(blog);
-            } else {
-              document.body.innerHTML = "<p>Blog not found.</p>";
-            }
-          })
-          .catch(err => {
-            console.error("Failed to load blog:", err);
-            document.body.innerHTML = "<p>Error loading blog.</p>";
-          });
-      }
-
-
-
-      // Function to render the blog content
-      /**
-       * Renders the blog content in the specified container.
-       * @param {Object} blog - The blog object containing the details to display.
-       */
-
-      function renderBlog(blog) {
-        document.title = blog.Title;
-
-        const container = document.getElementById("blog-detail");
-        container.innerHTML = ""; // Clear previous content if any
-
-        const title = document.createElement("h1");
-        title.textContent = blog.Title;
-
-        const img = document.createElement("img");
-        img.src = blog.image?.url || "";
-        img.alt = blog.Title;
-
-        const content = document.createElement("div");
-        blog.description.forEach(para => {
-          const p = document.createElement("p");
-          p.textContent = para.children.map(child => child.text).join("");
-          content.appendChild(p);
-        });
-
-        container.append(title, img, content);
-      }
-
-    </script>
+    <script src="blogDetail.js"></script>
+    <script src="recomandationBlogs.js"></script>
 
   </body>
 
