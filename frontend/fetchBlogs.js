@@ -37,7 +37,7 @@ async function fetchBlogs() {
         ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
         <h3>${title}</h3>
         <small>Published: ${formattedDate}</small>
-        <p>${description.substring(0, 220)}...</p>
+        <p>${description.substring(0, 120)}...</p>
         <a href="${readMoreLink}" class="read-more-btn btn">Read More</a>
       `;
 
