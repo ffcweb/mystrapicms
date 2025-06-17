@@ -50,6 +50,9 @@
 
     <div id="overlay" tabindex="-1"></div>
 
+
+
+
     <!-- Hero section -->
     <section class="hero">
       <div class="hero-left">
@@ -420,10 +423,9 @@
       </div>
 
       <!-- Blog posts card grid container -->
-      <div id="blog-list" class="blog-grid">
-        Loading...
-      </div>
+      <div id="blog-list" class="blog-grid"></div>
     </section>
+
 
 
     <!-- contact section  -->
@@ -504,8 +506,8 @@
 
 
     <!-- Your site script (if any) -->
-    <script src="script.js"></script>
-
+    <script src="fetchBlogs.js"></script>
+    <script src="fetchBlogs2.js"></script>
     <!-- reCAPTCHA script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="form.js"></script>
@@ -516,10 +518,6 @@
       // Initialize with your PUBLIC KEY (not the old user ID)
       emailjs.init("4R2mv2JMMlIJMUTiJ");
     </script>
-
-    <!-- Your form handling logic -->
-    <script src="form.js"></script>
-
 
   </body>
 

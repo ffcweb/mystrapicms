@@ -1,12 +1,10 @@
-
 const apiUrl = "https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?populate=*";
 
-// Helper to convert rich text blocks to plain text
 function getPlainText(blocks) {
   if (!Array.isArray(blocks)) return "";
   return blocks
     .map(block => block.children?.map(child => child.text).join(" ") || "")
-    .join("\n");
+    .join(" ");
 }
 
 async function fetchBlogs() {
@@ -19,31 +17,28 @@ async function fetchBlogs() {
     blogList.innerHTML = "";
 
     blogs.forEach(blog => {
+      const readMoreLink = `blogdetail.html?doc=${blog.documentId}`;
+
       const title = blog.Title || "Untitled";
       const description = getPlainText(blog.description) || "No description.";
+      const date = blog.Published || blog.publishedAt || blog.createdAt || null;
 
-
-      // const date = blog.date || blog.createdAt || "No date";
-      const date = blog.date || blog.publishedAt || blog.createdAt || null;
       const formattedDate = date
         ? new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
         : "No date";
 
-
-      // Correct image URL path based on your API response
-      const imageUrl = blog.image?.url || null;
-
+      const imageUrl = blog.image?.formats?.small?.url || blog.image?.url || null;
 
       const card = document.createElement("div");
       card.className = "blog-post";
 
       card.innerHTML = `
-          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
-          <h3>${title}</h3>
-        
-          <small>Published: ${formattedDate}</small>
-          <p>${description.substring(0, 70)}...</p>
-        `;
+        ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width:100%; border-radius: 5px;">` : ""}
+        <h3>${title}</h3>
+        <small>Published: ${formattedDate}</small>
+        <p>${description.substring(0, 100)}...</p>
+        <a href="${readMoreLink}" class="read-more-btn">Read More</a>
+      `;
 
       blogList.appendChild(card);
     });

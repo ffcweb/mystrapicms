@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading blog...</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .blog-detail img {
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+      }
+
+      .blog-detail p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const docId = params.get('doc');
+
+      if (!docId) {
+        document.body.innerHTML = "<p>Blog not found.</p>";
+      } else {
+        fetch(`https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?filters[documentId][$eq]=${docId}&populate=*`)
+          .then(res => res.json())
+          .then(data => {
+            const blog = data.data[0];
+            if (blog) {
+              renderBlog(blog);
+            } else {
+              document.body.innerHTML = "<p>Blog not found.</p>";
+            }
+          })
+          .catch(err => {
+            console.error("Failed to load blog:", err);
+            document.body.innerHTML = "<p>Error loading blog.</p>";
+          });
+      }
+
+      function renderBlog(blog) {
+        document.title = blog.Title;
+
+        const container = document.createElement("div");
+        container.className = "blog-detail";
+
+        const title = document.createElement("h1");
+        title.textContent = blog.Title;
+
+        const img = document.createElement("img");
+        img.src = blog.image?.url || "";
+        img.alt = blog.Title;
+
+        const content = document.createElement("div");
+        blog.description.forEach(para => {
+          const p = document.createElement("p");
+          p.textContent = para.children.map(child => child.text).join("");
+          content.appendChild(p);
+        });
+
+        container.append(title, img, content);
+        document.body.innerHTML = ""; // Clear existing content
+        document.body.appendChild(container);
+      }
+    </script>
+
+  </body>
+
+</html>

@@ -12,10 +12,13 @@
   "pluginOptions": {},
   "attributes": {
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "description": {
-      "type": "blocks"
+      "type": "blocks",
+      "required": true
     },
     "categories": {
       "type": "relation",
@@ -24,7 +27,8 @@
       "mappedBy": "blogs"
     },
     "Published": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "image": {
       "type": "media",
@@ -35,6 +39,11 @@
         "videos",
         "audios"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Title",
+      "required": false
     }
   }
 }
