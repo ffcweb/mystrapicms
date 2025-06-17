@@ -1,24 +1,27 @@
+const blogList = document.getElementById("blog-list");
+const paginationWrapper = document.getElementById("pagination");
 
-
-// Fetch and display all blog posts from the Strapi API using a flat structure 
-// and generate excerpts from the description blocks.
+let currentPage = 1;
+const pageSize = 6;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const blogList = document.getElementById("blog-list");
+  loadBlogs(currentPage);
+});
 
-  fetch("https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?populate=*")
+function loadBlogs(page) {
+  blogList.innerHTML = "<p>Loading...</p>";
+  paginationWrapper.innerHTML = "";
+
+  const url = `https://intuitive-excitement-a83f64758d.strapiapp.com/api/blogs?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
+
+  fetch(url)
     .then((res) => res.json())
     .then((data) => {
       const blogs = data.data;
+      const pagination = data.meta.pagination;
+      blogList.innerHTML = "";
 
-      if (!blogs || blogs.length === 0) {
-        blogList.innerHTML = "<p>No blog posts available.</p>";
-        return;
-      }
-
-      blogs.forEach((blogObj) => {
-        const blog = blogObj; // Flat structure
-
+      blogs.forEach((blog) => {
         const card = document.createElement("div");
         card.className = "blog-card";
 
@@ -45,12 +48,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
         blogList.appendChild(card);
       });
+
+      createPaginationControls(pagination.page, pagination.pageCount);
     })
     .catch((err) => {
       console.error("Error fetching blogs:", err);
       blogList.innerHTML = "<p>Error loading blogs. Please try again later.</p>";
     });
-});
+}
+
+function createPaginationControls(current, total) {
+  const container = document.createElement("div");
+  container.className = "pagination-controls";
+
+  // Prev Button
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "← Prev";
+  prevBtn.disabled = current === 1;
+  prevBtn.onclick = () => {
+    if (current > 1) {
+      currentPage--;
+      loadBlogs(currentPage);
+    }
+  };
+  container.appendChild(prevBtn);
+
+  // Page Numbers
+  for (let i = 1; i <= total; i++) {
+    const pageBtn = document.createElement("button");
+    pageBtn.textContent = i;
+    pageBtn.className = i === current ? "active-page" : "";
+    pageBtn.onclick = () => {
+      currentPage = i;
+      loadBlogs(currentPage);
+    };
+    container.appendChild(pageBtn);
+  }
+
+  // Next Button
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next →";
+  nextBtn.disabled = current === total;
+  nextBtn.onclick = () => {
+    if (current < total) {
+      currentPage++;
+      loadBlogs(currentPage);
+    }
+  };
+  container.appendChild(nextBtn);
+
+  paginationWrapper.appendChild(container);
+}
 
 function generateExcerpt(descriptionBlocks) {
   if (!descriptionBlocks || !Array.isArray(descriptionBlocks)) return "";
