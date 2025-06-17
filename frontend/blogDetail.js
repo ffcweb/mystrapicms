@@ -39,6 +39,20 @@ function renderBlog(blog) {
   img.src = blog.image?.url || "";
   img.alt = blog.Title;
 
+  // ✅ Format and show published date under title
+  const rawDate = blog.Published || blog.publishedAt || blog.createdAt || null;
+  const formattedDate = rawDate
+    ? new Date(rawDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+    : "No date available";
+
+  const dateEl = document.createElement("p");
+  dateEl.textContent = `Published on: ${formattedDate}`;
+  dateEl.style.fontSize = "0.9rem";
+  dateEl.style.color = "#777";
+  dateEl.style.marginTop = "-10px";
+  dateEl.style.marginBottom = "20px";
+
+
   const content = document.createElement("div");
   blog.description.forEach(para => {
     const p = document.createElement("p");
@@ -50,6 +64,6 @@ function renderBlog(blog) {
   // Function to render (to call)recommended posts
   renderRecommendedPosts(blog.documentId);
 
-
-  container.append(title, img, content);
+  // Function to render the blog content
+  container.append(title, dateEl, img, content);
 }
